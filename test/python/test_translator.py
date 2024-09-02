@@ -26,8 +26,19 @@ class TestTranslator(unittest.TestCase):
     def test_output(self):
         # This test comes from the starter repo
         actual = self.translate(["Abc", "123", "xYz"])
-        expected_output = ".....OO.....O.O...OO...........O.OOOO.....O.O...OO..........OO..OO.....OOO.OOOO..OOO"
-        self.assertEqual(actual, expected_output)
+        expected = ".....OO.....O.O...OO...........O.OOOO.....O.O...OO..........OO..OO.....OOO.OOOO..OOO"
+        self.assertEqual(actual, expected)
+
+    def test_quotes_around_all_words_with_single_spaces(self):
+        actual = self.translate(['"hEllO 38 WorlD"'])
+        expected = "O.OO.......OO.O.O.O.O.O.OOOOO.O..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
+        self.assertEqual(actual, expected)
+
+    def test_quotes_around_all_words_with_multiple_spaces(self):
+        # multiple spaces are treated as single spaces
+        actual = self.translate(['"hEllO    38            WorlD"'])
+        expected = "O.OO.......OO.O.O.O.O.O.OOOOO.O..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
+        self.assertEqual(actual, expected)
 
     def translate(self, message: list[str]) -> str:
         """Translates the given message and returns the result."""
