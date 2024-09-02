@@ -16,6 +16,10 @@
           packages = with pkgs; [
             python38
           ];
+
+          shellHook = ''
+            export PYTHONPATH="$(realpath ./eng-intern-challenge/python):$PYTHONPATH";
+          '';
         };
       });
 }
