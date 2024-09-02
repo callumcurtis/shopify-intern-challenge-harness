@@ -88,12 +88,27 @@ class TestTranslator(unittest.TestCase):
         expected = ""
         self.assertEqual(actual, expected)
 
+    def test_valid_braille(self):
+        actual = self.translate(["O..OO."])
+        expected = "O"
+        self.assertEqual(actual, expected)
+
+    def test_braille_indivisible_by_6(self):
+        actual = self.returncode(["O..OO"])
+        self.assertNotEqual(actual, 0)
+
     def translate(self, message: list[str]) -> str:
         """Translates the given message and returns the result."""
+        return self._translate_in_subprocess(message).stdout.strip()
+
+    def returncode(self, message: list[str]) -> int:
+        """Translates the given message and returns the return code."""
+        return self._translate_in_subprocess(message).returncode
+
+    def _translate_in_subprocess(self, message: list[str]) -> subprocess.CompletedProcess:
         command = ["python3", self.translator_script_path, *message]
-        result = subprocess.run(command, capture_output=True, text=True)
-        result = result.stdout.strip()
-        return result
+        subp = subprocess.run(command, capture_output=True, text=True)
+        return subp
 
 
 if __name__ == '__main__':
