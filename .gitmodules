@@ -1,0 +1,3 @@
+[submodule "eng-intern-challenge"]
+	path = eng-intern-challenge
+	url = git@github.com:callumcurtis/eng-intern-challenge.git
