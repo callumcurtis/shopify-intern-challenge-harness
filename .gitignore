@@ -1,1 +1,5 @@
+# direnv
 .direnv
+
+# secret
+activate-personal-email
