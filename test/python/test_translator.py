@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import unittest
 import subprocess
 import pathlib
@@ -21,21 +23,18 @@ class TestTranslator(unittest.TestCase):
 
         self.translator_script_path = translator_script_path
 
-
     def test_output(self):
         # This test comes from the starter repo
-
-        # Command to run translator.py script
-        command = ["python3", self.translator_script_path, "Abc", "123", "xYz"]
-
-        # Run the command and capture output
-        result = subprocess.run(command, capture_output=True, text=True)
-
-        # Expected output without the newline at the end
+        actual = self.translate(["Abc", "123", "xYz"])
         expected_output = ".....OO.....O.O...OO...........O.OOOO.....O.O...OO..........OO..OO.....OOO.OOOO..OOO"
+        self.assertEqual(actual, expected_output)
 
-        # Strip any leading/trailing whitespace from the output and compare
-        self.assertEqual(result.stdout.strip(), expected_output)
+    def translate(self, message: list[str]) -> str:
+        """Translates the given message and returns the result."""
+        command = ["python3", self.translator_script_path, *message]
+        result = subprocess.run(command, capture_output=True, text=True)
+        result = result.stdout.strip()
+        return result
 
 
 if __name__ == '__main__':
