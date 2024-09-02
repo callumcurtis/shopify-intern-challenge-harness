@@ -136,6 +136,30 @@ class TestTranslator(unittest.TestCase):
         actual = self.returncode([".....O.O.OOO"])
         self.assertNotEqual(actual, 0)
 
+    def test_capitalize_followed_by_capitalize(self):
+        actual = self.returncode([".....O.....O"])
+        self.assertNotEqual(actual, 0)
+
+    def test_numberize_followed_by_space(self):
+        actual = self.returncode([".O.OOO......"])
+        self.assertNotEqual(actual, 0)
+
+    def test_numberize_followed_by_letter(self):
+        actual = self.returncode([".O.OOOOO.OOO"])
+        self.assertNotEqual(actual, 0)
+
+    def test_numberize_followed_by_capital(self):
+        actual = self.returncode([".O.OOO.....O"])
+        self.assertNotEqual(actual, 0)
+
+    def test_numberize_followed_by_numberize(self):
+        actual = self.returncode([".O.OOO.O.OOO"])
+        self.assertNotEqual(actual, 0)
+
+    def test_numberize_followed_by_nothing(self):
+        actual = self.returncode([".O.OOO"])
+        self.assertNotEqual(actual, 0)
+
     def translate(self, message: list[str]) -> str:
         """Translates the given message and returns the result."""
         return self._translate_in_subprocess(message).stdout.strip()
