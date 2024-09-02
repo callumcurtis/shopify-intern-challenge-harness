@@ -83,6 +83,11 @@ class TestTranslator(unittest.TestCase):
         expected = ".OO.O.OO....O...OOO.O...O....."
         self.assertEqual(actual, expected)
 
+    def test_zero_tokens(self):
+        actual = self.translate([])
+        expected = ""
+        self.assertEqual(actual, expected)
+
     def translate(self, message: list[str]) -> str:
         """Translates the given message and returns the result."""
         command = ["python3", self.translator_script_path, *message]
