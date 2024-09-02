@@ -103,6 +103,17 @@ class TestTranslator(unittest.TestCase):
         expected = "O..OO.O..OO.O.....O..OO.O..OO.O..OO."
         self.assertEqual(actual, expected)
 
+    def test_space_inside_braille(self):
+        actual = self.translate(["OO OOO"])
+        expected = "O..OO.O..OO.......O..OO.O..OO.O..OO."
+        self.assertEqual(actual, expected)
+
+    def test_period_inside_english(self):
+        # since A is non-braille, the message must be in English,
+        # but the "." characters are not in the English alphabet
+        actual = self.returncode(["O..A.O"])
+        self.assertNotEqual(actual, 0)
+
     def test_capitalize(self):
         actual = self.translate([".....OO....."])
         expected = "A"
