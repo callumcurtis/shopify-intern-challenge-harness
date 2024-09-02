@@ -97,6 +97,12 @@ class TestTranslator(unittest.TestCase):
         actual = self.returncode(["O..OO"])
         self.assertNotEqual(actual, 0)
 
+    def test_non_braille_characters(self):
+        # non-braille characters indicate the message is in English
+        actual = self.translate(["OOAOOO"])
+        expected = "O..OO.O..OO.O.....O..OO.O..OO.O..OO."
+        self.assertEqual(actual, expected)
+
     def translate(self, message: list[str]) -> str:
         """Translates the given message and returns the result."""
         return self._translate_in_subprocess(message).stdout.strip()
