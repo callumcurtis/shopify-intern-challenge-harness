@@ -19,6 +19,8 @@
 
           shellHook = ''
             export PYTHONPATH="$(realpath ./eng-intern-challenge/python):$PYTHONPATH";
+            # disable creating __pycache__ folders in the solution repo
+            export PYTHONDONTWRITEBYTECODE=1;
           '';
         };
       });
