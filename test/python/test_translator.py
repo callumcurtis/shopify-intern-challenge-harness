@@ -51,8 +51,36 @@ class TestTranslator(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_some_quoted_words_with_multiple_spaces(self):
-        actual = self.translate(['hEllO    "38            WorlD"'])
+        # trailing/leading spaces are stripped
+        actual = self.translate([' hEllO    "  38            WorlD  "   '])
         expected = "O.OO.......OO.O.O.O.O.O.OOOOO.O..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
+        self.assertEqual(actual, expected)
+
+    def test_one_short_number(self):
+        actual = self.translate(["8"])
+        expected = ".O.OOOO.OO.."
+        self.assertEqual(actual, expected)
+
+    def test_one_long_number(self):
+        actual = self.translate(["1672"])
+        expected = ".O.OOOO.....OOO...OOOO..O.O..."
+        self.assertEqual(actual, expected)
+
+    def test_one_number_with_spaces(self):
+        # trailing/leading spaces are stripped
+        actual = self.translate(["    1672 "])
+        expected = ".O.OOOO.....OOO...OOOO..O.O..."
+        self.assertEqual(actual, expected)
+
+    def test_one_word(self):
+        actual = self.translate(["scuba"])
+        expected = ".OO.O.OO....O...OOO.O...O....."
+        self.assertEqual(actual, expected)
+
+    def test_one_word_with_spaces(self):
+        # trailing/leading spaces are stripped
+        actual = self.translate(["  scuba         "])
+        expected = ".OO.O.OO....O...OOO.O...O....."
         self.assertEqual(actual, expected)
 
     def translate(self, message: list[str]) -> str:
