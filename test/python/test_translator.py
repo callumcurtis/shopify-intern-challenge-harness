@@ -103,6 +103,28 @@ class TestTranslator(unittest.TestCase):
         expected = "O..OO.O..OO.O.....O..OO.O..OO.O..OO."
         self.assertEqual(actual, expected)
 
+    def test_capitalize(self):
+        actual = self.translate([".....OO....."])
+        expected = "A"
+        self.assertEqual(actual, expected)
+
+    def test_single_character_is_capitalized(self):
+        actual = self.translate([".....OO.....O....."])
+        expected = "Aa"
+        self.assertEqual(actual, expected)
+
+    def test_capitalize_followed_by_nothing(self):
+        actual = self.returncode([".....O"])
+        self.assertNotEqual(actual, 0)
+
+    def test_capitalize_followed_by_space(self):
+        actual = self.returncode([".....O......"])
+        self.assertNotEqual(actual, 0)
+
+    def test_capitalize_followed_by_number(self):
+        actual = self.returncode([".....O.O.OOO"])
+        self.assertNotEqual(actual, 0)
+
     def translate(self, message: list[str]) -> str:
         """Translates the given message and returns the result."""
         return self._translate_in_subprocess(message).stdout.strip()
