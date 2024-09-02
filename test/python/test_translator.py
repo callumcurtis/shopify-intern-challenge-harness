@@ -50,6 +50,11 @@ class TestTranslator(unittest.TestCase):
         expected = "O.OO.......OO.O.O.O.O.O.OOOOO.O..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
         self.assertEqual(actual, expected)
 
+    def test_some_quoted_words_with_multiple_spaces(self):
+        actual = self.translate(['hEllO    "38            WorlD"'])
+        expected = "O.OO.......OO.O.O.O.O.O.OOOOO.O..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
+        self.assertEqual(actual, expected)
+
     def translate(self, message: list[str]) -> str:
         """Translates the given message and returns the result."""
         command = ["python3", self.translator_script_path, *message]
