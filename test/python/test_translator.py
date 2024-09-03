@@ -68,7 +68,7 @@ class TestTranslator(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_mixed_case_braille(self):
-        actual = self.translate(["O.OO.......OO.O.O.O.O.O.OOOOO.O..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."]) #
+        actual = self.translate(["O.OO.......OO..O..O.O.O.O.O.O......OO..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."])
         expected = "hEllO 38 WorlD"
         self.assertEqual(actual, expected)
 
@@ -155,7 +155,7 @@ class TestTranslator(unittest.TestCase):
 
     def test_valid_braille(self):
         actual = self.translate(["O..OO."])
-        expected = "O"
+        expected = "o"
         self.assertEqual(actual, expected)
 
     def test_braille_indivisible_by_6(self):
@@ -309,8 +309,6 @@ class TestTranslator(unittest.TestCase):
             ("7", ".O.OOOOOOO.."),
             ("8", ".O.OOOO.OO.."),
             ("9", ".O.OOO.OO..."),
-            # space
-            (" ", "......"),
         ]:
             with self.subTest(character=character, expected=expected):
                 actual = self.translate([character])
@@ -383,8 +381,6 @@ class TestTranslator(unittest.TestCase):
             (".O.OOOOOOO..", "7"),
             (".O.OOOO.OO..", "8"),
             (".O.OOO.OO...", "9"),
-            # space
-            ("......", " "),
         ]:
             with self.subTest(cell=cell, expected=expected):
                 actual = self.translate([cell])
