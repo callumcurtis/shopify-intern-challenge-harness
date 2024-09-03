@@ -99,6 +99,16 @@ class TestTranslator(unittest.TestCase):
         expected = "O.OO.......OO..O..O.O.O.O.O.O......OO..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
         self.assertEqual(actual, expected)
 
+    def test_braille_with_multiple_inner_spaces(self):
+        actual = self.translate(["O.................OO...."])
+        expected = "a  c"
+        self.assertEqual(actual, expected)
+
+    def test_braille_with_leading_and_trailing_whitespace(self):
+        actual = self.translate(["......O..........."])
+        expected = " a "
+        self.assertEqual(actual, expected)
+
     def test_one_short_number(self):
         actual = self.translate(["8"])
         expected = ".O.OOOO.OO.."
@@ -123,7 +133,7 @@ class TestTranslator(unittest.TestCase):
     def test_one_number_with_spaces_braille(self):
         # trailing/leading spaces are stripped
         actual = self.translate([".......O.OOOO.....OOO...OOOO..O.O........."])
-        expected = "1672"
+        expected = " 1672 "
         self.assertEqual(actual, expected)
 
     def test_one_word_english(self):
@@ -145,7 +155,7 @@ class TestTranslator(unittest.TestCase):
     def test_one_word_with_spaces_braille(self):
         # trailing/leading spaces are stripped
         actual = self.translate([".............OO.O.OO....O...OOO.O...O..........."])
-        expected = "scuba"
+        expected = "  scuba "
         self.assertEqual(actual, expected)
 
     def test_zero_tokens(self):
@@ -170,7 +180,7 @@ class TestTranslator(unittest.TestCase):
 
     def test_space_inside_braille(self):
         actual = self.translate(["OO OOO"])
-        expected = "O..OO.O..OO.......O..OO.O..OO.O..OO."
+        expected = ".....OO..OO......OO..OO............OO..OO......OO..OO......OO..OO."
         self.assertEqual(actual, expected)
 
     def test_period_inside_english(self):
@@ -388,7 +398,7 @@ class TestTranslator(unittest.TestCase):
 
     def translate(self, message: list[str]) -> str:
         """Translates the given message and returns the result."""
-        return self._translate_in_subprocess(message).stdout.strip()
+        return self._translate_in_subprocess(message).stdout
 
     def returncode(self, message: list[str]) -> int:
         """Translates the given message and returns the return code."""
