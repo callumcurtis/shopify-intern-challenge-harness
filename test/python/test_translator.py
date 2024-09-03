@@ -23,28 +23,48 @@ class TestTranslator(unittest.TestCase):
 
         self.translator_script_path = translator_script_path
 
-    def test_example_0(self):
+    def test_example_0_english_to_braille(self):
         # This test comes from the starter repo
         actual = self.translate(["Abc", "123", "xYz"])
         expected = ".....OO.....O.O...OO...........O.OOOO.....O.O...OO..........OO..OO.....OOO.OOOO..OOO"
         self.assertEqual(actual, expected)
 
-    def test_example_1(self):
+    def test_example_0_braille_to_english(self):
+        actual = self.translate([".....OO.....O.O...OO...........O.OOOO.....O.O...OO..........OO..OO.....OOO.OOOO..OOO"])
+        expected = "Abc 123 xYz"
+        self.assertEqual(actual, expected)
+
+    def test_example_1_english_to_braille(self):
         # This test comes from the starter repo
         actual = self.translate(["Hello", "world"])
         expected = ".....OO.OO..O..O..O.O.O.O.O.O.O..OO........OOO.OO..OO.O.OOO.O.O.O.OO.O.."
         self.assertEqual(actual, expected)
 
-    def test_example_2(self):
+    def test_example_1_braille_to_english(self):
+        actual = self.translate([".....OO.OO..O..O..O.O.O.O.O.O.O..OO........OOO.OO..OO.O.OOO.O.O.O.OO.O.."])
+        expected = "Hello world"
+        self.assertEqual(actual, expected)
+
+    def test_example_2_english_to_braille(self):
         # This test comes from the starter repo
         actual = self.translate(["42"])
         expected = ".O.OOOOO.O..O.O..."
         self.assertEqual(actual, expected)
 
-    def test_example_3(self):
+    def test_example_2_braille_to_english(self):
+        actual = self.translate([".O.OOOOO.O..O.O..."])
+        expected = "42"
+        self.assertEqual(actual, expected)
+
+    def test_example_3_braille_to_english(self):
         # This test comes from the starter repo
         actual = self.translate([".....OO.....O.O...OO...........O.OOOO.....O.O...OO...."])
         expected = "Abc 123"
+        self.assertEqual(actual, expected)
+
+    def test_example_3_english_to_braille(self):
+        actual = self.translate(["Abc", "123"])
+        expected = ".....OO.....O.O...OO...........O.OOOO.....O.O...OO...."
         self.assertEqual(actual, expected)
 
     def test_quotes_around_all_words_with_single_spaces(self):
