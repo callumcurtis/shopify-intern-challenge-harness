@@ -15,6 +15,7 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             python38
+            dos2unix
           ];
 
           shellHook = ''
