@@ -73,30 +73,30 @@ class TestTranslator(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_quotes_around_all_words_with_single_spaces(self):
-        actual = self.translate(['"hEllO 38 WorlD"'])
-        expected = "O.OO.......OO.O.O.O.O.O.OOOOO.O..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
+        actual = self.translate(["hEllO 38 WorlD"])
+        expected = "O.OO.......OO..O..O.O.O.O.O.O......OO..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
         self.assertEqual(actual, expected)
 
     def test_quotes_around_all_words_with_multiple_spaces(self):
         # multiple quoted spaces are treated as single spaces
-        actual = self.translate(['"hEllO    38            WorlD"'])
-        expected = "O.OO.......OO.O.O.O.O.O.OOOOO.O..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
+        actual = self.translate(["hEllO    38            WorlD"])
+        expected = "O.OO.......OO..O..O.O.O.O.O.O......OO..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
         self.assertEqual(actual, expected)
 
     def test_unquoted_words_with_single_spaces(self):
         actual = self.translate(["hEllO 38 WorlD"])
-        expected = "O.OO.......OO.O.O.O.O.O.OOOOO.O..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
+        expected = "O.OO.......OO..O..O.O.O.O.O.O......OO..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
         self.assertEqual(actual, expected)
 
     def test_unquoted_words_with_multiple_spaces(self):
         actual = self.translate(["hEllO    38            WorlD"])
-        expected = "O.OO.......OO.O.O.O.O.O.OOOOO.O..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
+        expected = "O.OO.......OO..O..O.O.O.O.O.O......OO..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
         self.assertEqual(actual, expected)
 
     def test_some_quoted_words_with_multiple_spaces(self):
         # trailing/leading spaces are stripped
-        actual = self.translate([' hEllO    "  38            WorlD  "   '])
-        expected = "O.OO.......OO.O.O.O.O.O.OOOOO.O..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
+        actual = self.translate([" hEllO    ","     38            WorlD  ", "   "])
+        expected = "O.OO.......OO..O..O.O.O.O.O.O......OO..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
         self.assertEqual(actual, expected)
 
     def test_one_short_number(self):
