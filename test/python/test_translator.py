@@ -23,10 +23,28 @@ class TestTranslator(unittest.TestCase):
 
         self.translator_script_path = translator_script_path
 
-    def test_output(self):
+    def test_example_0(self):
         # This test comes from the starter repo
         actual = self.translate(["Abc", "123", "xYz"])
         expected = ".....OO.....O.O...OO...........O.OOOO.....O.O...OO..........OO..OO.....OOO.OOOO..OOO"
+        self.assertEqual(actual, expected)
+
+    def test_example_1(self):
+        # This test comes from the starter repo
+        actual = self.translate(["Hello", "world"])
+        expected = ".....OO.OO..O..O..O.O.O.O.O.O.O..OO........OOO.OO..OO.O.OOO.O.O.O.OO.O.."
+        self.assertEqual(actual, expected)
+
+    def test_example_2(self):
+        # This test comes from the starter repo
+        actual = self.translate(["42"])
+        expected = ".O.OOOOO.O..O.O..."
+        self.assertEqual(actual, expected)
+
+    def test_example_3(self):
+        # This test comes from the starter repo
+        actual = self.translate([".....OO.....O.O...OO...........O.OOOO.....O.O...OO...."])
+        expected = "Abc 123"
         self.assertEqual(actual, expected)
 
     def test_quotes_around_all_words_with_single_spaces(self):
