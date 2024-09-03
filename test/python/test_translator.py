@@ -165,7 +165,7 @@ class TestTranslator(unittest.TestCase):
     def test_non_braille_characters(self):
         # non-braille characters indicate the message is in English
         actual = self.translate(["OOAOOO"])
-        expected = "O..OO.O..OO.O.....O..OO.O..OO.O..OO."
+        expected = ".....OO..OO......OO..OO......OO..........OO..OO......OO..OO......OO..OO."
         self.assertEqual(actual, expected)
 
     def test_space_inside_braille(self):
@@ -286,7 +286,7 @@ class TestTranslator(unittest.TestCase):
             ("L", ".....OO.O.O."),
             ("M", ".....OOO..O."),
             ("N", ".....OOO.OO."),
-            ("O", ".....OO..OO."),
+            # ("O", ".....OO..OO."), this is considered Braille
             ("P", ".....OOOO.O."),
             ("Q", ".....OOOOOO."),
             ("R", ".....OO.OOO."),
