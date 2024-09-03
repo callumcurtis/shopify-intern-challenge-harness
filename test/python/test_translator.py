@@ -160,6 +160,97 @@ class TestTranslator(unittest.TestCase):
         actual = self.returncode([".O.OOO"])
         self.assertNotEqual(actual, 0)
 
+    def test_number_followed_by_letter(self):
+        actual = self.returncode([".O.OOOOO....O..OOO"])
+        self.assertNotEqual(actual, 0)
+
+    def test_number_followed_by_capitalize(self):
+        actual = self.returncode([".O.OOOOO.........O"])
+        self.assertNotEqual(actual, 0)
+
+    def test_number_followed_by_numberize(self):
+        actual = self.returncode([".O.OOOOO.....O.OOO"])
+        self.assertNotEqual(actual, 0)
+
+    def test_number_followed_by_nothing(self):
+        actual = self.translate([".O.OOOOO...."])
+        expected = "3"
+        self.assertEqual(actual, expected)
+
+    def test_english_characters(self):
+        for character, expected in [
+            # lowercase letters
+            ("a", "O....."),
+            ("b", "O.O..."),
+            ("c", "OO...."),
+            ("d", "OO.O.."),
+            ("e", "O..O.."),
+            ("f", "OOO..."),
+            ("g", "OOOO.."),
+            ("h", "O.OO.."),
+            ("i", ".OO..."),
+            ("j", ".OOO.."),
+            ("k", "O...O."),
+            ("l", "O.O.O."),
+            ("m", "OO..O."),
+            ("n", "OO.OO."),
+            ("o", "O..OO."),
+            ("p", "OOO.O."),
+            ("q", "OOOOO."),
+            ("r", "O.OOO."),
+            ("s", ".OO.O."),
+            ("t", ".OOOO."),
+            ("u", "O...OO"),
+            ("v", "O.O.OO"),
+            ("w", ".OOO.O"),
+            ("x", "OO..OO"),
+            ("y", "OO.OOO"),
+            ("z", "O..OOO"),
+            # uppercase letters
+            ("A", ".....OO....."),
+            ("B", ".....OO.O..."),
+            ("C", ".....OOO...."),
+            ("D", ".....OOO.O.."),
+            ("E", ".....OO..O.."),
+            ("F", ".....OOOO..."),
+            ("G", ".....OOOOO.."),
+            ("H", ".....OO.OO.."),
+            ("I", ".....O.OO..."),
+            ("J", ".....O.OOO.."),
+            ("K", ".....OO...O."),
+            ("L", ".....OO.O.O."),
+            ("M", ".....OOO..O."),
+            ("N", ".....OOO.OO."),
+            ("O", ".....OO..OO."),
+            ("P", ".....OOOO.O."),
+            ("Q", ".....OOOOOO."),
+            ("R", ".....OO.OOO."),
+            ("S", ".....O.OO.O."),
+            ("T", ".....O.OOOO."),
+            ("U", ".....OO...OO"),
+            ("V", ".....OO.O.OO"),
+            ("W", ".....O.OOO.O"),
+            ("X", ".....OOO..OO"),
+            ("Y", ".....OOO.OOO"),
+            ("Z", ".....OO..OOO"),
+            # numbers
+            ("0", ".O.OOO.OOO.."),
+            ("1", ".O.OOOO....."),
+            ("2", ".O.OOOO.O..."),
+            ("3", ".O.OOOOO...."),
+            ("4", ".O.OOOOO.O.."),
+            ("5", ".O.OOOO..O.."),
+            ("6", ".O.OOOOOO..."),
+            ("7", ".O.OOOOOOO.."),
+            ("8", ".O.OOOO.OO.."),
+            ("9", ".O.OOO.OO..."),
+            # space
+            (" ", "......"),
+        ]:
+            with self.subTest(character=character, expected=expected):
+                actual = self.translate([character])
+                self.assertEqual(actual, expected)
+
     def translate(self, message: list[str]) -> str:
         """Translates the given message and returns the result."""
         return self._translate_in_subprocess(message).stdout.strip()
