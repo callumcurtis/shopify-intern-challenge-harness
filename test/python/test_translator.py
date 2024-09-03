@@ -316,6 +316,80 @@ class TestTranslator(unittest.TestCase):
                 actual = self.translate([character])
                 self.assertEqual(actual, expected)
 
+    def test_braille_cells(self):
+        for cell, expected in [
+            # lowercase letters
+            ("O.....", "a"),
+            ("O.O...", "b"),
+            ("OO....", "c"),
+            ("OO.O..", "d"),
+            ("O..O..", "e"),
+            ("OOO...", "f"),
+            ("OOOO..", "g"),
+            ("O.OO..", "h"),
+            (".OO...", "i"),
+            (".OOO..", "j"),
+            ("O...O.", "k"),
+            ("O.O.O.", "l"),
+            ("OO..O.", "m"),
+            ("OO.OO.", "n"),
+            ("O..OO.", "o"),
+            ("OOO.O.", "p"),
+            ("OOOOO.", "q"),
+            ("O.OOO.", "r"),
+            (".OO.O.", "s"),
+            (".OOOO.", "t"),
+            ("O...OO", "u"),
+            ("O.O.OO", "v"),
+            (".OOO.O", "w"),
+            ("OO..OO", "x"),
+            ("OO.OOO", "y"),
+            ("O..OOO", "z"),
+            # uppercase letters
+            (".....OO.....", "A"),
+            (".....OO.O...", "B"),
+            (".....OOO....", "C"),
+            (".....OOO.O..", "D"),
+            (".....OO..O..", "E"),
+            (".....OOOO...", "F"),
+            (".....OOOOO..", "G"),
+            (".....OO.OO..", "H"),
+            (".....O.OO...", "I"),
+            (".....O.OOO..", "J"),
+            (".....OO...O.", "K"),
+            (".....OO.O.O.", "L"),
+            (".....OOO..O.", "M"),
+            (".....OOO.OO.", "N"),
+            (".....OO..OO.", "O"),
+            (".....OOOO.O.", "P"),
+            (".....OOOOOO.", "Q"),
+            (".....OO.OOO.", "R"),
+            (".....O.OO.O.", "S"),
+            (".....O.OOOO.", "T"),
+            (".....OO...OO", "U"),
+            (".....OO.O.OO", "V"),
+            (".....O.OOO.O", "W"),
+            (".....OOO..OO", "X"),
+            (".....OOO.OOO", "Y"),
+            (".....OO..OOO", "Z"),
+            # numbers
+            (".O.OOO.OOO..", "0"),
+            (".O.OOOO.....", "1"),
+            (".O.OOOO.O...", "2"),
+            (".O.OOOOO....", "3"),
+            (".O.OOOOO.O..", "4"),
+            (".O.OOOO..O..", "5"),
+            (".O.OOOOOO...", "6"),
+            (".O.OOOOOOO..", "7"),
+            (".O.OOOO.OO..", "8"),
+            (".O.OOO.OO...", "9"),
+            # space
+            ("......", " "),
+        ]:
+            with self.subTest(cell=cell, expected=expected):
+                actual = self.translate([cell])
+                self.assertEqual(actual, expected)
+
     def translate(self, message: list[str]) -> str:
         """Translates the given message and returns the result."""
         return self._translate_in_subprocess(message).stdout.strip()
