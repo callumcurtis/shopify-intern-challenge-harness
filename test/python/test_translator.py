@@ -67,6 +67,11 @@ class TestTranslator(unittest.TestCase):
         expected = ".....OO.....O.O...OO...........O.OOOO.....O.O...OO...."
         self.assertEqual(actual, expected)
 
+    def test_mixed_case_braille(self):
+        actual = self.translate(["O.OO.......OO.O.O.O.O.O.OOOOO.O..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."]) #
+        expected = "hEllO 38 WorlD"
+        self.assertEqual(actual, expected)
+
     def test_quotes_around_all_words_with_single_spaces(self):
         actual = self.translate(['"hEllO 38 WorlD"'])
         expected = "O.OO.......OO.O.O.O.O.O.OOOOO.O..OO........O.OOOOO....O.OO.............O.OOO.OO..OO.O.OOO.O.O.O......OOO.O.."
@@ -99,26 +104,48 @@ class TestTranslator(unittest.TestCase):
         expected = ".O.OOOO.OO.."
         self.assertEqual(actual, expected)
 
-    def test_one_long_number(self):
+    def test_one_long_number_english(self):
         actual = self.translate(["1672"])
         expected = ".O.OOOO.....OOO...OOOO..O.O..."
         self.assertEqual(actual, expected)
 
-    def test_one_number_with_spaces(self):
+    def test_one_long_number_braille(self):
+        actual = self.translate([".O.OOOO.....OOO...OOOO..O.O..."])
+        expected = "1672"
+        self.assertEqual(actual, expected)
+
+    def test_one_number_with_spaces_english(self):
         # trailing/leading spaces are stripped
         actual = self.translate(["    1672 "])
         expected = ".O.OOOO.....OOO...OOOO..O.O..."
         self.assertEqual(actual, expected)
 
-    def test_one_word(self):
+    def test_one_number_with_spaces_braille(self):
+        # trailing/leading spaces are stripped
+        actual = self.translate([".......O.OOOO.....OOO...OOOO..O.O........."])
+        expected = "1672"
+        self.assertEqual(actual, expected)
+
+    def test_one_word_english(self):
         actual = self.translate(["scuba"])
         expected = ".OO.O.OO....O...OOO.O...O....."
         self.assertEqual(actual, expected)
 
-    def test_one_word_with_spaces(self):
+    def test_one_word_braille(self):
+        actual = self.translate([".OO.O.OO....O...OOO.O...O....."])
+        expected = "scuba"
+        self.assertEqual(actual, expected)
+
+    def test_one_word_with_spaces_english(self):
         # trailing/leading spaces are stripped
         actual = self.translate(["  scuba         "])
         expected = ".OO.O.OO....O...OOO.O...O....."
+        self.assertEqual(actual, expected)
+
+    def test_one_word_with_spaces_braille(self):
+        # trailing/leading spaces are stripped
+        actual = self.translate([".............OO.O.OO....O...OOO.O...O..........."])
+        expected = "scuba"
         self.assertEqual(actual, expected)
 
     def test_zero_tokens(self):
